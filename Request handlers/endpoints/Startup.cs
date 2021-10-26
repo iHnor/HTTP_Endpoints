@@ -97,8 +97,11 @@ namespace endpoints
                 {
                     string inpText = await new StreamReader(context.Request.Body).ReadToEndAsync();
                     Dictionary<string, int> wordsFrequency = new Dictionary<string, int>();
+                    
                     wordsFrequency = numberWordsInText(inpText);
                     string mostUniqueWord = uniqueWords(wordsFrequency);
+                    string countOfWords = wordsFrequency.Count.ToString();
+
                     string resultFrequency = "";
                     foreach (var word in wordsFrequency)
                     {
@@ -106,7 +109,7 @@ namespace endpoints
                     }
 
                     context.Response.ContentType = "application/json";
-                    // context.Response.Headers.Add("Number of unique words", );
+                    context.Response.Headers.Add("Number of unique words", countOfWords);
                     context.Response.Headers.Add("The most frequent word:", mostUniqueWord);
 
                     await context.Response.WriteAsJsonAsync(resultFrequency);
