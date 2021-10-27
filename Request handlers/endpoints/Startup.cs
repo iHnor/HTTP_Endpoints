@@ -102,17 +102,11 @@ namespace endpoints
                     string mostUniqueWord = uniqueWords(wordsFrequency);
                     string countOfWords = wordsFrequency.Count.ToString();
 
-                    string resultFrequency = "";
-                    foreach (var word in wordsFrequency)
-                    {
-                        resultFrequency += word.Key + ":" + word.Value + "\n";
-                    }
-
                     context.Response.ContentType = "application/json";
-                    context.Response.Headers.Add("Number of unique words", countOfWords);
-                    context.Response.Headers.Add("The most frequent word:", mostUniqueWord);
+                    context.Response.Headers.Add("Unique-words", countOfWords);
+                    context.Response.Headers.Add("Frequent-word", mostUniqueWord);
 
-                    await context.Response.WriteAsJsonAsync(resultFrequency);
+                    await context.Response.WriteAsJsonAsync(wordsFrequency);
                 });
             });
         }
